@@ -26,8 +26,6 @@ export default function Hero() {
           />
         </div>
         
-        <p className="text-xl md:text-2xl text-gray-300">Rest in Art, Grow in Forest</p>
-        
         <div className="mt-12">
           <Link 
             href="/support" 
