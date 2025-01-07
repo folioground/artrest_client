@@ -45,7 +45,7 @@ export default function About() {
           className="text-center opacity-0 translate-y-10 transition-all duration-1000 ease-out"
         >
           <h1 className="text-2xl md:text-4xl font-bold mb-6">
-            "예술가의 모든 순간이 작품이 되는 곳"
+            예술가의 모든 순간이 작품이 되는 곳
           </h1>
         </div>
 

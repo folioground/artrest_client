@@ -2,6 +2,7 @@
 
 import Link from 'next/link'
 import { ChevronDown } from 'lucide-react'
+import Image from 'next/image'
 
 export default function Hero() {
   const handleScroll = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -17,11 +18,12 @@ export default function Hero() {
       <div className="text-center space-y-8">
         {/* A 로고만 크게 표시 */}
         <div className="mb-4">
-          <img 
+          <Image 
             src="/A_logo.svg" 
             alt="ARTREST Logo" 
-            className="mx-auto"
-            style={{ width: '500px', height: '500px' }} // 크기를 w-24 h-24에서 w-48 h-48로 증가
+            width={500}
+            height={500}
+            className="mx-auto" // 크기를 w-24 h-24에서 w-48 h-48로 증가
           />
         </div>
         {/* 지원사업 버튼 */}
