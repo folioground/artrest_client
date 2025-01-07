@@ -1,6 +1,5 @@
 'use client'
 import Link from 'next/link'
-import { scrollToElement } from '../utils/scroll' // 아래에서 생성할 유틸 함수
 
 export default function Navbar() {
   const handleScroll = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
