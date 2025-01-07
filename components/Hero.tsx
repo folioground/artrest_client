@@ -1,13 +1,47 @@
+'use client'
+
+import Link from 'next/link'
+import { ChevronDown } from 'lucide-react'
+
 export default function Hero() {
-    return (
-      <section className="relative h-screen flex items-center justify-center bg-black">
-        <div className="text-center space-y-6 p-4">
-          <h1 className="text-5xl md:text-7xl font-bold">ARTREST.</h1>
-          <p className="text-xl md:text-2xl text-gray-300">Rest in Art, Grow in Forest</p>
-          <p className="text-gray-400 max-w-2xl mx-auto">
-            1%의 영감을 위한 99%의 노력을 해결합니다.
-          </p>
-        </div>
-      </section>
-    )
+  const handleScroll = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault()
+    const aboutSection = document.getElementById('about')
+    if (aboutSection) {
+      aboutSection.scrollIntoView({ behavior: 'smooth' })
+    }
   }
+
+  return (
+    <section className="relative h-screen flex flex-col items-center justify-center bg-black">
+      <div className="text-center space-y-8">
+        {/* A 로고만 크게 표시 */}
+        <div className="mb-4">
+          <img 
+            src="/A_logo.svg" 
+            alt="ARTREST Logo" 
+            className="mx-auto"
+            style={{ width: '500px', height: '500px' }} // 크기를 w-24 h-24에서 w-48 h-48로 증가
+          />
+        </div>
+        {/* 지원사업 버튼 */}
+        <div className="mt-12">
+          <Link 
+            href="/support" 
+            className="bg-white text-black px-8 py-4 rounded-full text-lg font-medium hover:bg-gray-100 transition-colors"
+          >
+            내 지원사업 한번에 찾기
+          </Link>
+        </div>
+      </div>
+
+      {/* 스크롤 화살표 */}
+      <button 
+        onClick={handleScroll}
+        className="absolute bottom-8 animate-bounce opacity-50 hover:opacity-100 transition-opacity"
+      >
+        <ChevronDown size={32} />
+      </button>
+    </section>
+  )
+}

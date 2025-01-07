@@ -1,4 +1,5 @@
 'use client'
+
 import Link from 'next/link'
 
 export default function Navbar() {
@@ -21,27 +22,32 @@ export default function Navbar() {
           </div>
           <div className="hidden md:flex items-center space-x-8">
             <a 
-              href="#brand" 
-              onClick={(e) => handleScroll(e, 'brand')}
+              href="#about" 
+              onClick={(e) => handleScroll(e, 'about')}
               className="text-gray-300 hover:text-white transition-colors cursor-pointer"
             >
-              BRAND
-            </a>
-            <a 
-              href="#service"
-              onClick={(e) => handleScroll(e, 'service')}
-              className="text-gray-300 hover:text-white transition-colors cursor-pointer"
-            >
-              SERVICE
+              About
             </a>
             <Link 
-              href="/contact" 
+              href="/support" 
               className="text-gray-300 hover:text-white transition-colors"
             >
-              CONTACT
+              지원사업
             </Link>
             <Link 
-              href="/inquiry" 
+              href="/portfolio" 
+              className="text-gray-300 hover:text-white transition-colors"
+            >
+              포트폴리오
+            </Link>
+            <Link 
+              href="/community" 
+              className="text-gray-300 hover:text-white transition-colors"
+            >
+              커뮤니티
+            </Link>
+            <Link 
+              href="/contact" 
               className="bg-white text-black px-6 py-2 rounded-full hover:bg-gray-100 transition-colors"
             >
               문의하기
