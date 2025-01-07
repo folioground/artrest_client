@@ -57,7 +57,7 @@ export default function About() {
         >
           <p className="text-xl md:text-2xl text-gray-300 mb-4">
             창작에만 몰입하세요.<br />
-            복잡한 나머지는 ARTREST가 해결합니다.
+            복잡한 나머지는 ARTREST가 해결합니다
           </p>
         </div>
 
@@ -68,9 +68,9 @@ export default function About() {
           className="text-center opacity-0 translate-y-10 transition-all duration-1000 ease-out delay-500"
         >
           <p className="text-lg md:text-xl text-gray-400 leading-relaxed">
-            지원사업 매칭부터 서류 작성, 작품 이력과 포트폴리오까지.<br />
-            예술가의 성장을 위한 모든 과정을 한 곳에서.<br />
-            ARTREST와 함께 당신의 예술이 꽃피는 숲을 만들어갑니다.
+            지원사업 매칭부터 서류 작성, 작품 이력과 포트폴리오까지<br />
+            예술가의 성장을 위한 모든 과정을 한 곳에서<br />
+            ARTREST와 함께 당신의 예술이 꽃피는 숲을 만들어갑니다
           </p>
         </div>
 

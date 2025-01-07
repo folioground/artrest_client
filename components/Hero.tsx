@@ -1,8 +1,8 @@
 'use client'
 
 import Link from 'next/link'
-import { ChevronDown } from 'lucide-react'
 import Image from 'next/image'
+import { ChevronDown } from 'lucide-react'
 
 export default function Hero() {
   const handleScroll = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -16,17 +16,18 @@ export default function Hero() {
   return (
     <section className="relative h-screen flex flex-col items-center justify-center bg-black">
       <div className="text-center space-y-8">
-        {/* A 로고만 크게 표시 */}
         <div className="mb-4">
           <Image 
             src="/A_logo.svg" 
             alt="ARTREST Logo" 
             width={500}
             height={500}
-            className="mx-auto" // 크기를 w-24 h-24에서 w-48 h-48로 증가
+            className="mx-auto"
           />
         </div>
-        {/* 지원사업 버튼 */}
+        
+        <p className="text-xl md:text-2xl text-gray-300">Rest in Art, Grow in Forest</p>
+        
         <div className="mt-12">
           <Link 
             href="/support" 
@@ -37,7 +38,6 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* 스크롤 화살표 */}
       <button 
         onClick={handleScroll}
         className="absolute bottom-8 animate-bounce opacity-50 hover:opacity-100 transition-opacity"
