@@ -36,10 +36,10 @@ export default function About() {
        >
          <h2 className="text-2xl md:text-3xl font-medium text-gray-900 mb-6">
            <span className="md:inline block">복잡한 지원사업, 번거로운 포트폴리오까지</span>
-           <span className="md:inline block mt-2 md:mt-0">한 번에 관리하세요.</span>
+           <span className="md:inline block mt-2 md:mt-0"> 한 번에 관리하세요.</span>
          </h2>
          <p className="text-lg md:text-xl text-gray-600">
-           <span className="md:inline block">ARTREST로 쉽고 편리하게,</span>
+           <span className="md:inline block">ARTREST로 쉽고 편리하게, </span>
            <span className="md:inline block mt-1 md:mt-0">예술의 모든 어려움을 해결합니다.</span>
          </p>
        </div>
