@@ -51,7 +51,7 @@ export default function Hero() {
              className="inline-block bg-black/40 text-white px-8 py-4 rounded-lg backdrop-blur-sm
                        hover:bg-zinc-800/90 transition-all duration-300"
            >
-             내 지원사업 한눈에 찾기
+             내 지원사업 한번에 찾기
            </Link>
          </div>
        </div>
