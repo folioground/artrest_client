@@ -1,7 +1,6 @@
-// components/Service.tsx
 'use client'
 
-import { useEffect, useRef } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import Link from 'next/link'
 
 const categories = [
@@ -24,40 +23,42 @@ const categories = [
 ]
 
 export default function Service() {
- const textRef = useRef<HTMLDivElement>(null)
+ const [isVisible, setIsVisible] = useState(false)
+ const componentRef = useRef(null)
 
  useEffect(() => {
    const observer = new IntersectionObserver(
-     (entries) => {
-       entries.forEach((entry) => {
-         if (entry.isIntersecting) {
-           entry.target.classList.add('opacity-100', 'translate-y-0')
-         }
-       })
+     ([entry]) => {
+       if (entry.isIntersecting) {
+         setIsVisible(true)
+       } else {
+         setIsVisible(false)
+       }
      },
-     {
-       threshold: 0.1,
-     }
+     { threshold: 0.1 }
    )
 
-   if (textRef.current) {
-     observer.observe(textRef.current)
+   if (componentRef.current) {
+     observer.observe(componentRef.current)
    }
 
    return () => observer.disconnect()
  }, [])
 
  return (
-   <section className="min-h-screen py-20 px-4 md:px-8 bg-white">
+   <section ref={componentRef} className="min-h-screen py-20 px-4 md:px-8 bg-white">
      <div className="max-w-7xl mx-auto flex flex-col md:flex-row md:items-start md:justify-between">
        {/* 왼쪽 텍스트 영역 */}
        <div 
-         ref={textRef}
-         className="w-full md:w-5/12 mb-12 md:mb-0 text-center md:text-left opacity-0 translate-y-10 transition-all duration-1000 ease-out"
+         className={`
+           w-full md:w-5/12 mb-12 md:mb-0 text-center md:text-left
+           transition-all duration-1000 ease-out
+           ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}
+         `}
        >
          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
            <span className="block">이젠 직접 찾지 마세요</span>
-           <span className="block mt-2">아트레스트가 찾아드릴게요</span>
+           <span className="block mt-2">ARTREST가 찾아드릴게요</span>
          </h2>
          <p className="text-lg text-gray-600 mb-2">
            예술인활동증명서만 준비해 주세요.
@@ -68,7 +69,13 @@ export default function Service() {
        </div>
 
        {/* 오른쪽 카테고리 영역 */}
-       <div className="w-full md:w-6/12">
+       <div 
+         className={`
+           w-full md:w-6/12
+           transition-all duration-1000 ease-out delay-300
+           ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}
+         `}
+       >
          <div className="flex flex-wrap gap-3 justify-center md:justify-start">
            {categories.map((category) => (
              <button
