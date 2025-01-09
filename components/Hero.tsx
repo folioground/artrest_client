@@ -48,8 +48,8 @@ export default function Hero() {
          <div className="mt-8">
            <Link
              href="/support"
-             className="inline-block bg-black/40 text-white px-8 py-4 rounded-lg backdrop-blur-sm
-                       hover:bg-zinc-800/90 transition-all duration-300"
+             className="inline-block bg-black/20 text-white px-8 py-4 rounded-lg backdrop-blur-sm
+                       hover:bg-zinc-800/100 transition-all duration-300"
            >
              내 지원사업 한번에 찾기
            </Link>
