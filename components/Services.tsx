@@ -114,17 +114,25 @@ const navigationStyles = `
   @media (max-width: 768px) {
     .swiper-button-next,
     .swiper-button-prev {
-      width: 16px;
-      height: 16px;
+      display: none;
     }
-    .swiper-button-next {
-      right: 24px;
+
+    h2 {
+      font-size: 24px;
+      line-height: 1.5;
+      word-break: keep-all;
+      word-wrap: break-word;
     }
-    .swiper-button-prev {
-      left: 24px;
+
+    p {
+      font-size: 16px;
+      line-height: 1.6;
+      word-break: keep-all;
+      white-space: pre-line;
     }
+
     .swiper-pagination {
-      bottom: 180px !important;
+      bottom: 100px !important;
     }
   }
 `
