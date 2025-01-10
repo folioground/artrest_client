@@ -363,7 +363,7 @@ export default function Service() {
             "@context": "https://schema.org",
             "@type": "WebPage",
             "name": "ARTREST 서비스",
-            "description": "예술가를 위한 원스톱 플랫폼 ARTREST",
+            "description": "예술인을 위한 올인원 플랫폼 ARTREST",
             "provider": {
               "@type": "Organization",
               "name": "ARTREST",

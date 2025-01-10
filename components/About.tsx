@@ -63,12 +63,6 @@ export default function About() {
          </p>
        </div>
 
-
-
-
-
-
-
        {/* 첫 번째 섹션 */}
        <div className="flex flex-col md:flex-row items-center justify-between gap-12 mb-32">
          <Image
