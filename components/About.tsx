@@ -26,6 +26,7 @@ export default function About() {
    return () => observer.disconnect()
  }, [])
 
+
  return (
    <section id="about" className="min-h-screen py-32 px-4 bg-white">
      <div ref={ref} className="max-w-7xl mx-auto">
@@ -36,13 +37,37 @@ export default function About() {
            ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}
          `}
        >
-         <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+         {/* PC 버전 - md 이상에서만 표시 */}
+         <h2 className="hidden md:block text-4xl font-bold text-gray-900 mb-6">
            복잡한 지원사업, 번거로운 포트폴리오까지 한 번에 관리하세요.
          </h2>
-         <p className="text-lg md:text-xl text-gray-600">
+         
+         {/* 모바일 버전 - md 미만에서만 표시 */}
+         <div className="block md:hidden">
+           <h2 className="text-3xl font-bold text-gray-900 mb-6">
+             복잡한 지원사업<br />
+             번거로운 포트폴리오까지<br />
+             한 번에 관리하세요.
+           </h2>
+         </div>
+
+         {/* PC 버전 설명 텍스트 */}
+         <p className="hidden md:block text-xl text-gray-600">
            ARTREST로 쉽고 편리하게, 예술의 모든 어려움을 해결합니다.
          </p>
+
+         {/* 모바일 버전 설명 텍스트 */}
+         <p className="block md:hidden text-lg text-gray-600">
+           ARTREST로 쉽고 편리하게,<br />
+           예술의 모든 어려움을 해결합니다.
+         </p>
        </div>
+
+
+
+
+
+
 
        {/* 첫 번째 섹션 */}
        <div className="flex flex-col md:flex-row items-center justify-between gap-12 mb-32">

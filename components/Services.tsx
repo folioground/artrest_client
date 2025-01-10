@@ -137,13 +137,13 @@ const navigationStyles = `
     }
 
     .swiper-button-next {
-      right: 52px;
+      right: 32px;
       border-right: 3.5px solid #666;
       border-bottom: 3.5px solid #666;
     }
 
     .swiper-button-prev {
-      left: 52px;
+      left: 32px;
       border-left: 3.5px solid #666;
       border-top: 3.5px solid #666;
     }
@@ -152,6 +152,26 @@ const navigationStyles = `
     .swiper-button-prev:hover {
       border-color: #000;
     }
+
+    .max-w-7xl {
+      max-width: 80%;  /* 기존 max-w-7xl 대신 상대적 너비 사용 */
+      margin: 0 auto;
+      padding: 0 48px; /* 양쪽 패딩 추가 */
+    }
+
+    @media (max-width: 1280px) {
+      .max-w-7xl {
+        max-width: 90%;
+        padding: 0 40px;
+      }
+    }
+
+    @media (max-width: 1024px) {
+      .max-w-7xl {
+        max-width: 95%;
+        padding: 0 36px;
+      }
+    }
   }
 
   .swiper-button-next::after,
@@ -159,18 +179,31 @@ const navigationStyles = `
     display: none;
   }
 
+  .swiper-pagination {
+    position: absolute !important;
+    bottom: 150px !important;  /* 기존보다 위로 올림 */
+  }
+
   .swiper-pagination-bullet {
     background: #666;
     opacity: 0.5;
-    margin: 0 !important;
+    margin: 0 6px !important;
     transition: all 0.3s ease;
+    width: 8px;  /* 크기 지정 */
+    height: 8px;
   }
 
   .swiper-pagination-bullet-active {
     background: #000;
     opacity: 1;
+    margin: 0 6px !important;  /* 간격 조정 */
     transform: scale(1.2);
+    transition: all 0.3s ease;
   }
+
+
+
+
 
   @media (max-width: 768px) {
     .mobile-sections {

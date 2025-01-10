@@ -8,9 +8,9 @@ import { Instagram, Facebook } from 'lucide-react'
 export default function Footer() {
   return (
     <footer className="border-t border-gray-200">
-      <div className="max-w-7xl mx-auto px-4 py-12">
+      <div className="max-w-6xl mx-auto px-4 py-12">
         {/* 소셜 미디어 섹션 */}
-        <div className="flex gap-4 mb-12">
+        <div className="flex gap-4 mb-12 pt-8">
           <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-gray-600">
             <Instagram size={24} />
           </a>
