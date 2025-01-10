@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState, useRef } from 'react'
+import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { Swiper, SwiperSlide, SwiperProps } from 'swiper/react'
@@ -198,7 +198,6 @@ const navigationStyles = `
 // ... (ErrorFallback 및 LoadingSpinner 컴포넌트는 그대로 유지)
 
 export default function Service() {
-  const [currentSlide, setCurrentSlide] = useState(0)
   const [isLoading, setIsLoading] = useState(true)
   const isMobile = useMediaQuery('(max-width: 768px)')
 
@@ -224,13 +223,12 @@ export default function Service() {
       clickable: true,
       type: 'bullets',
     },
-    onSlideChange: (swiper) => setCurrentSlide(swiper.activeIndex)
   }
 
   return (
     <ErrorBoundary
       FallbackComponent={ErrorFallback}
-      onReset={() => setCurrentSlide(0)}
+      onReset={() => {}}
     >
       <Script
         id="schema-service"
