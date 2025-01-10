@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { Swiper, SwiperSlide, SwiperProps } from 'swiper/react'
-import { Navigation, Pagination, A11y, Mousewheel } from 'swiper/modules'
+import { Navigation, Pagination, A11y } from 'swiper/modules'
 import { ErrorBoundary } from 'react-error-boundary'
 import Script from 'next/script'
 import 'swiper/css'
@@ -38,6 +38,7 @@ interface ImageService extends ServiceBase {
 
 type Service = CategoryService | ImageService
 
+// 서비스 데이터
 const services: Service[] = [
   {
     id: 'main',
@@ -91,23 +92,6 @@ const services: Service[] = [
   }
 ]
 
-// 커스텀 훅: 미디어 쿼리 감지
-
-const LoadingSpinner = () => (
-  <div className="flex items-center justify-center min-h-screen">
-    <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-gray-900"></div>
-  </div>
-)
-
-const ErrorFallback = ({ error, resetErrorBoundary }: { error: Error; resetErrorBoundary: () => void }) => (
-  <div role="alert" className="p-4 text-center">
-    <h2 className="text-xl font-bold mb-4">문제가 발생했습니다</h2>
-    <p className="mb-4">{error.message}</p>
-    <button onClick={resetErrorBoundary} className="px-4 py-2 bg-gray-900 text-white rounded-lg">
-      다시 시도하기
-    </button>
-  </div>
-)
 
 const useMediaQuery = (query: string) => {
   const [matches, setMatches] = useState(false)
@@ -156,23 +140,10 @@ const navigationStyles = `
       border-left: 3.5px solid #666;
       border-top: 3.5px solid #666;
     }
-  }
 
-  @media (max-width: 768px) {
-    .swiper {
-      height: 100vh !important;
-    }
-    
-    .swiper-slide {
-      height: auto !important;
-    }
-
-    .swiper-pagination {
-      right: 10px !important;
-      left: auto !important;
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
+    .swiper-button-next:hover,
+    .swiper-button-prev:hover {
+      border-color: #000;
     }
   }
 
@@ -193,9 +164,86 @@ const navigationStyles = `
     opacity: 1;
     transform: scale(1.2);
   }
+
+  @media (max-width: 768px) {
+    .mobile-sections {
+      width: 100%;
+      overflow-y: auto;
+      overflow-x: hidden;
+    }
+
+    .mobile-section {
+      scroll-snap-align: start;
+      width: 100%;
+    }
+  }
 `
 
-// ... (ErrorFallback 및 LoadingSpinner 컴포넌트는 그대로 유지)
+const LoadingSpinner = () => (
+  <div className="flex items-center justify-center min-h-screen">
+    <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-gray-900"></div>
+  </div>
+)
+
+const ErrorFallback = ({ error, resetErrorBoundary }: { error: Error; resetErrorBoundary: () => void }) => (
+  <div role="alert" className="p-4 text-center">
+    <h2 className="text-xl font-bold mb-4">문제가 발생했습니다</h2>
+    <p className="mb-4">{error.message}</p>
+    <button onClick={resetErrorBoundary} className="px-4 py-2 bg-gray-900 text-white rounded-lg">
+      다시 시도하기
+    </button>
+  </div>
+)
+
+// ServiceContent 컴포넌트 추출
+const ServiceContent = ({ service }: { service: Service }) => (
+  <div className="max-w-7xl mx-auto flex flex-col md:flex-row md:items-center md:justify-between gap-12">
+    <div className="w-full md:w-5/12 text-center md:text-left">
+      <h2 className="text-[28px] leading-[1.4] font-bold text-gray-900 mb-6 whitespace-pre-line">
+        {service.title}
+      </h2>
+      <p className="text-lg text-gray-600 whitespace-pre-line">
+        {service.description}
+      </p>
+    </div>
+    
+    <div className="w-full md:w-6/12">
+      {service.type === 'category' ? (
+        <div className="flex flex-col justify-center h-full pt-8 md:pt-20">
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+            {service.categories.map((category) => (
+              <button
+                key={category.name}
+                className="flex items-center justify-center px-4 py-3 rounded-xl bg-gray-50 text-gray-700 hover:bg-gray-100 transition-all duration-300"
+              >
+                <span>{category.name}</span>
+                <span className="ml-2">{category.emoji}</span>
+              </button>
+            ))}
+          </div>
+          <div className="mt-8 text-center md:text-right">
+            <Link href={service.buttonLink}>
+              <button className="px-8 py-4 bg-gray-900 text-white rounded-xl hover:bg-gray-800 transition-all duration-300">
+                {service.buttonText}
+              </button>
+            </Link>
+          </div>
+        </div>
+      ) : (
+        <div className="relative aspect-[4/3] bg-gray-50 rounded-2xl overflow-hidden">
+          <Image
+            src={service.image}
+            alt={service.alt}
+            fill
+            sizes="(max-width: 768px) 100vw, 50vw"
+            priority={service.id === 'ai-assistant'}
+            className="object-cover"
+          />
+        </div>
+      )}
+    </div>
+  </div>
+)
 
 export default function Service() {
   const [isLoading, setIsLoading] = useState(true)
@@ -209,27 +257,22 @@ export default function Service() {
   if (isLoading) return <LoadingSpinner />
 
   const swiperParams: SwiperProps = {
-    modules: [Navigation, Pagination, A11y, Mousewheel],
+    modules: [Navigation, Pagination, A11y],
     spaceBetween: 0,
     slidesPerView: 1,
-    direction: isMobile ? 'vertical' : 'horizontal',
-    mousewheel: isMobile,
     loop: true,
-    navigation: !isMobile ? {
+    navigation: {
       nextEl: '.swiper-button-next',
       prevEl: '.swiper-button-prev'
-    } : false,
+    },
     pagination: {
       clickable: true,
       type: 'bullets',
-    },
+    }
   }
 
   return (
-    <ErrorBoundary
-      FallbackComponent={ErrorFallback}
-      onReset={() => {}}
-    >
+    <ErrorBoundary FallbackComponent={ErrorFallback} onReset={() => {}}>
       <Script
         id="schema-service"
         type="application/ld+json"
@@ -250,69 +293,33 @@ export default function Service() {
 
       <style jsx global>{navigationStyles}</style>
 
-      <div className="h-screen w-full">
-        <Swiper {...swiperParams}>
+      {isMobile ? (
+        <div className="mobile-sections">
           {services.map((service) => (
-            <SwiperSlide key={service.id}>
-              <section className="min-h-screen py-16 md:py-24 px-4 md:px-8 bg-white">
-                <div className="max-w-7xl mx-auto flex flex-col md:flex-row md:items-center md:justify-between gap-12">
-                  <div className="w-full md:w-5/12 text-center md:text-left">
-                    <h2 className="text-[28px] leading-[1.4] font-bold text-gray-900 mb-6 whitespace-pre-line">
-                      {service.title}
-                    </h2>
-                    <p className="text-lg text-gray-600 whitespace-pre-line">
-                      {service.description}
-                    </p>
-                  </div>
-                  
-                  <div className="w-full md:w-6/12">
-                    {service.type === 'category' ? (
-                      <div className="flex flex-col justify-center h-full pt-8 md:pt-20">
-                        <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-                          {service.categories.map((category) => (
-                            <button
-                              key={category.name}
-                              className="flex items-center justify-center px-4 py-3 rounded-xl bg-gray-50 text-gray-700 hover:bg-gray-100 transition-all duration-300"
-                            >
-                              <span>{category.name}</span>
-                              <span className="ml-2">{category.emoji}</span>
-                            </button>
-                          ))}
-                        </div>
-                        <div className="mt-8 text-center md:text-right">
-                          <Link href={service.buttonLink}>
-                            <button className="px-8 py-4 bg-gray-900 text-white rounded-xl hover:bg-gray-800 transition-all duration-300">
-                              {service.buttonText}
-                            </button>
-                          </Link>
-                        </div>
-                      </div>
-                    ) : (
-                      <div className="relative aspect-[4/3] bg-gray-50 rounded-2xl overflow-hidden">
-                        <Image
-                          src={service.image}
-                          alt={service.alt}
-                          fill
-                          sizes="(max-width: 768px) 100vw, 50vw"
-                          priority={service.id === 'ai-assistant'}
-                          className="object-cover"
-                        />
-                      </div>
-                    )}
-                  </div>
-                </div>
-              </section>
-            </SwiperSlide>
+            <section 
+              key={service.id}
+              className="mobile-section py-16 px-4 bg-white"
+            >
+              <ServiceContent service={service} />
+            </section>
           ))}
-          
-          {!isMobile && (
-            <>
-              <div className="swiper-button-prev" aria-label="이전 서비스" />
-              <div className="swiper-button-next" aria-label="다음 서비스" />
-            </>
-          )}
-        </Swiper>
-      </div>
+        </div>
+      ) : (
+        <div className="h-screen w-full">
+          <Swiper {...swiperParams}>
+            {services.map((service) => (
+              <SwiperSlide key={service.id}>
+                <section className="min-h-screen py-24 px-8 bg-white">
+                  <ServiceContent service={service} />
+                </section>
+              </SwiperSlide>
+            ))}
+            
+            <div className="swiper-button-prev" aria-label="이전 서비스" />
+            <div className="swiper-button-next" aria-label="다음 서비스" />
+          </Swiper>
+        </div>
+      )}
     </ErrorBoundary>
   )
 }
