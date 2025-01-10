@@ -181,7 +181,7 @@ const navigationStyles = `
 
   .swiper-pagination {
     position: absolute !important;
-    bottom: 150px !important;  /* 기존보다 위로 올림 */
+    bottom: 200px !important;  /* 기존보다 위로 올림 */
   }
 
   .swiper-pagination-bullet {
@@ -200,9 +200,6 @@ const navigationStyles = `
     transform: scale(1.2);
     transition: all 0.3s ease;
   }
-
-
-
 
 
   @media (max-width: 768px) {
@@ -383,7 +380,7 @@ export default function Service() {
           {services.map((service, index) => (
             <section 
               key={service.id}
-              className="mobile-section py-16 px-4 bg-white"
+              className="mobile-section py-36 px-4 bg-white"
             >
               <ServiceContent 
                 service={service} 
@@ -398,7 +395,7 @@ export default function Service() {
           <Swiper {...swiperParams}>
             {services.map((service) => (
               <SwiperSlide key={service.id}>
-                <section className="min-h-screen py-24 px-8 bg-white">
+                <section className="min-h-screen py-36 px-8 bg-white">
                   <ServiceContent service={service} isMobile={false} />
                 </section>
               </SwiperSlide>
