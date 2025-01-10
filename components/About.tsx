@@ -78,7 +78,7 @@ export default function About() {
          <div className="md:w-1/2">
            <span className="text-sm font-bold text-gray-500">Grow in Forest</span>
            <h3 className="text-2xl md:text-3xl font-bold text-gray-900 mt-2 mb-4">
-             예술가의 꿈을 키워줄 단 하나의 플랫폼
+             예술가의 꿈을 위한 유일한 플랫폼
            </h3>
            <p className="text-gray-600 leading-relaxed">
              예술가의 연 평균 소득은 456만원에 불과합니다. 하지만 이제는 다릅니다. 

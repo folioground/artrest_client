@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { Swiper, SwiperSlide, SwiperProps } from 'swiper/react'
@@ -22,6 +22,12 @@ interface ServiceBase {
   title: string
   description: string
   alt: string
+}
+
+interface ServiceContentProps {
+  service: Service
+  isMobile: boolean
+  isFirst?: boolean
 }
 
 interface CategoryService extends ServiceBase {
@@ -78,7 +84,7 @@ const services: Service[] = [
     id: 'nft-portfolio',
     type: 'image',
     title: '작품 하나로 전 세계를 연결하다\nARTREST 디지털 갤러리',
-    description: '귀찮은 포트폴리오 관리도 디지털 갤러리에서 시작하세요.\n클릭 한 번으로 전시부터 판매까지.\n11조원의 글로벌 NFT 시장에서 당신의 가치를 높이세요.',
+    description: '포트폴리오 관리도 디지털 갤러리에서 시작하세요.\n클릭 한 번으로 전시부터 판매까지.\n11조원의 글로벌 NFT 시장에서 당신의 가치를 높이세요.',
     image: '/service-nft.jpg',
     alt: 'NFT와 포트폴리오 관리 서비스 소개'
   },
@@ -109,6 +115,7 @@ const useMediaQuery = (query: string) => {
 
   return matches
 }
+
 
 const navigationStyles = `
   .swiper {
@@ -176,6 +183,20 @@ const navigationStyles = `
       scroll-snap-align: start;
       width: 100%;
     }
+
+    .opacity-0 {
+      opacity: 0;
+    }
+
+    .transform {
+      transform: translateY(4px);
+    }
+
+    .visible {
+      opacity: 1 !important;
+      transform: translateY(0) !important;
+      transition: all 0.6s ease-out !important;
+    }
   }
 `
 
@@ -196,54 +217,85 @@ const ErrorFallback = ({ error, resetErrorBoundary }: { error: Error; resetError
 )
 
 // ServiceContent 컴포넌트 추출
-const ServiceContent = ({ service }: { service: Service }) => (
-  <div className="max-w-7xl mx-auto flex flex-col md:flex-row md:items-center md:justify-between gap-12">
-    <div className="w-full md:w-5/12 text-center md:text-left">
-      <h2 className="text-[28px] leading-[1.4] font-bold text-gray-900 mb-6 whitespace-pre-line">
-        {service.title}
-      </h2>
-      <p className="text-lg text-gray-600 whitespace-pre-line">
-        {service.description}
-      </p>
-    </div>
-    
-    <div className="w-full md:w-6/12">
-      {service.type === 'category' ? (
-        <div className="flex flex-col justify-center h-full pt-8 md:pt-20">
-          <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-            {service.categories.map((category) => (
-              <button
-                key={category.name}
-                className="flex items-center justify-center px-4 py-3 rounded-xl bg-gray-50 text-gray-700 hover:bg-gray-100 transition-all duration-300"
-              >
-                <span>{category.name}</span>
-                <span className="ml-2">{category.emoji}</span>
-              </button>
-            ))}
+
+const ServiceContent = ({ service, isMobile, isFirst = false }: ServiceContentProps) => {
+  const sectionRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    if (!isMobile || isFirst) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible')
+          }
+        })
+      },
+      { threshold: 0.1 }
+    )
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current)
+    }
+
+    return () => observer.disconnect()
+  }, [isMobile, isFirst])
+
+  return (
+    <div 
+      ref={isMobile && !isFirst ? sectionRef : undefined} 
+      className={`max-w-7xl mx-auto flex flex-col md:flex-row md:items-center md:justify-between gap-12 
+        ${isMobile && !isFirst ? 'opacity-0 transform translate-y-4 transition-all duration-600 ease-out' : ''}`}
+    >
+      <div className="w-full md:w-5/12 text-center md:text-left">
+        <h2 className="text-[24px] md:text-[28px] leading-[1.6] md:leading-[1.4] font-bold text-gray-900 mb-6 whitespace-pre-line">
+          {service.title}
+        </h2>
+        <p className={`text-base md:text-lg text-gray-600 
+          ${isMobile ? 'whitespace-normal break-keep leading-relaxed' : 'whitespace-pre-line'}`}>
+          {service.description}
+        </p>
+      </div>
+      
+      <div className="w-full md:w-6/12">
+        {service.type === 'category' ? (
+          <div className="flex flex-col justify-center h-full pt-8 md:pt-20">
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+              {service.categories.map((category) => (
+                <button
+                  key={category.name}
+                  className="flex items-center justify-center px-4 py-3 rounded-xl bg-gray-50 text-gray-700 hover:bg-gray-100 transition-all duration-300"
+                >
+                  <span>{category.name}</span>
+                  <span className="ml-2">{category.emoji}</span>
+                </button>
+              ))}
+            </div>
+            <div className="mt-8 text-center md:text-right">
+              <Link href={service.buttonLink}>
+                <button className="px-8 py-4 bg-gray-900 text-white rounded-xl hover:bg-gray-800 transition-all duration-300">
+                  {service.buttonText}
+                </button>
+              </Link>
+            </div>
           </div>
-          <div className="mt-8 text-center md:text-right">
-            <Link href={service.buttonLink}>
-              <button className="px-8 py-4 bg-gray-900 text-white rounded-xl hover:bg-gray-800 transition-all duration-300">
-                {service.buttonText}
-              </button>
-            </Link>
+        ) : (
+          <div className="relative aspect-[4/3] bg-gray-50 rounded-2xl overflow-hidden">
+            <Image
+              src={service.image}
+              alt={service.alt}
+              fill
+              sizes="(max-width: 768px) 100vw, 50vw"
+              priority={service.id === 'ai-assistant'}
+              className="object-cover"
+            />
           </div>
-        </div>
-      ) : (
-        <div className="relative aspect-[4/3] bg-gray-50 rounded-2xl overflow-hidden">
-          <Image
-            src={service.image}
-            alt={service.alt}
-            fill
-            sizes="(max-width: 768px) 100vw, 50vw"
-            priority={service.id === 'ai-assistant'}
-            className="object-cover"
-          />
-        </div>
-      )}
+        )}
+      </div>
     </div>
-  </div>
-)
+  )
+}
 
 export default function Service() {
   const [isLoading, setIsLoading] = useState(true)
@@ -295,12 +347,16 @@ export default function Service() {
 
       {isMobile ? (
         <div className="mobile-sections">
-          {services.map((service) => (
+          {services.map((service, index) => (
             <section 
               key={service.id}
               className="mobile-section py-16 px-4 bg-white"
             >
-              <ServiceContent service={service} />
+              <ServiceContent 
+                service={service} 
+                isMobile={true}
+                isFirst={index === 0} 
+              />
             </section>
           ))}
         </div>
@@ -310,7 +366,7 @@ export default function Service() {
             {services.map((service) => (
               <SwiperSlide key={service.id}>
                 <section className="min-h-screen py-24 px-8 bg-white">
-                  <ServiceContent service={service} />
+                  <ServiceContent service={service} isMobile={false} />
                 </section>
               </SwiperSlide>
             ))}
