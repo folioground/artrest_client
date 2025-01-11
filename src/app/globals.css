@@ -19,3 +19,12 @@ html {
 .translate-y-0 {
   transform: translateY(0);
 }
+
+* {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+  -webkit-context-menu: none;
+}
