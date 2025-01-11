@@ -30,7 +30,7 @@ export default function Footer() {
         {/* 회사 정보 섹션 */}
         <div className="grid md:grid-cols-2 gap-8 mb-12">
           <div className="space-y-2">
-            <p className="text-gray-900 font-medium">폴리오그라운드</p>
+            <p className="text-gray-900 font-small">폴리오그라운드</p>
             <p className="text-gray-600">대표 금성윤</p>
             <p className="text-gray-600">서울특별시 영등포구 버드나루로7길</p>
             <p className="text-gray-600">사업자등록번호: 000-00-00000</p>

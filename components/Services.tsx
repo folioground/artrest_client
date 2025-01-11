@@ -49,7 +49,7 @@ const services: Service[] = [
   {
     id: 'main',
     type: 'category',
-    title: '이젠 직접 찾지 마세요\nARTREST가 찾아드릴게요',
+    title: '이젠 직접 찾지 마세요\n아트레스트가 찾아드릴게요',
     description: '예술인활동증명서만 준비해 주세요.\n클릭 한 번이면 지원사업을 찾아서 추천해 드립니다.',
     alt: '지원사업 매칭 서비스 소개',
     categories: [
@@ -75,7 +75,7 @@ const services: Service[] = [
   {
     id: 'ai-assistant',
     type: 'image',
-    title: '복잡한 서류 작성, 영수증 관리도\nARTREST에서 해결하세요',
+    title: '복잡한 서류 작성, 영수증 관리도\n아트레스트에서 해결하세요',
     description: '키워드만 입력하면 AI가 맞춤형 문서를 완성합니다.\n사업비 정산부터 영수증 관리, 보고서 작성까지.\n귀찮은 행정 업무를 모두 자동화하세요.',
     image: '/service-ai.jpg',
     alt: 'AI 서류 작성 도우미 서비스 소개'
@@ -83,7 +83,7 @@ const services: Service[] = [
   {
     id: 'nft-portfolio',
     type: 'image',
-    title: '작품 하나로 전 세계를 연결하다\nARTREST 디지털 갤러리',
+    title: '작품 하나로 전 세계를 연결하다\n아트레스트 디지털 갤러리',
     description: '포트폴리오 관리도 디지털 갤러리에서 시작하세요.\n클릭 한 번으로 전시부터 판매까지.\n11조원의 글로벌 NFT 시장에서 당신의 가치를 높이세요.',
     image: '/service-nft.jpg',
     alt: 'NFT와 포트폴리오 관리 서비스 소개'
@@ -91,7 +91,7 @@ const services: Service[] = [
   {
     id: 'community',
     type: 'image',
-    title: '예술가의 첫걸음부터 성공까지,\nARTREST 커뮤니티',
+    title: '예술가의 첫걸음부터 성공까지,\n아트레스트 커뮤니티',
     description: '혼자가 아닙니다. 서로의 노하우를 공유하며 함께 성장하세요.\n지원사업 합격 비결부터 NFT 판매 전략까지.\n특별한 커뮤니티에서 창작과 커리어를 한 단계 더 높여보세요.',
     image: '/service-community.jpg',
     alt: 'ARTREST 커뮤니티 서비스 소개'
@@ -363,7 +363,7 @@ export default function Service() {
             "@context": "https://schema.org",
             "@type": "WebPage",
             "name": "ARTREST 서비스",
-            "description": "예술인을 위한 올인원 플랫폼 ARTREST",
+            "description": "예술인을 위한 올인원 플랫폼 아트레스트",
             "provider": {
               "@type": "Organization",
               "name": "ARTREST",
