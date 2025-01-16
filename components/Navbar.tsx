@@ -1,6 +1,8 @@
 'use client'
 
 import { useState } from 'react'
+import Link from 'next/link'
+import Image from 'next/image'
 import { Menu, X } from 'lucide-react'
 
 export default function Navbar() {
@@ -32,13 +34,15 @@ export default function Navbar() {
           <div className="flex items-center justify-between h-16">
             {/* 로고 */}
             <div className="flex-shrink-0">
-              <a href="/" className="flex items-center">
-                <img 
+              <Link href="/" className="flex items-center">
+                <Image 
                   src="/A_logo_top.svg"
                   alt="ARTREST"
+                  width={24}
+                  height={24}
                   className="h-6 w-auto"
                 />
-              </a>
+              </Link>
             </div>
 
             {/* 데스크톱 메뉴 */}
@@ -76,10 +80,12 @@ export default function Navbar() {
                 className="bg-[#FFE812] text-black px-6 py-2 rounded-full hover:bg-[#F2DC00] transition-colors flex items-center space-x-2"
               >
                 <div className="w-5 h-5 relative">
-                  <img 
+                  <Image 
                     src="/kakao-chat.svg"
                     alt="카카오톡 채팅"
-                    className="w-full h-full object-contain"
+                    width={20}
+                    height={20}
+                    className="object-contain"
                   />
                 </div>
                 <span>문의하기</span>
@@ -156,10 +162,12 @@ export default function Navbar() {
                 className="py-3 flex items-center space-x-2 text-[#3A1D1D] hover:text-[#FFE812] transition-colors"
               >
                 <div className="w-5 h-5 relative">
-                  <img 
+                  <Image 
                     src="/kakao-chat.svg"
                     alt="카카오톡 채팅"
-                    className="w-full h-full object-contain"
+                    width={20}
+                    height={20}
+                    className="object-contain"
                   />
                 </div>
                 <span>문의하기</span>
@@ -179,7 +187,7 @@ export default function Navbar() {
           <div className="relative bg-white rounded-lg p-6 max-w-sm mx-4">
             <h3 className="text-lg font-semibold mb-2">서비스 준비중</h3>
             <p className="text-gray-600 mb-4">
-              해당 서비스는 현재 준비중입니다.<br></br>서비스에 대해 궁금하신 점은 문의하기를 눌러주세요.
+              해당 서비스는 현재 개발중입니다. <br></br>서비스에 대해 궁금하신 점은 문의하기를 눌러주세요.
             </p>
             <button
               onClick={() => setShowPopup(false)}
